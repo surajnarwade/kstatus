@@ -1,0 +1,10 @@
+name: "status"                    # REQUIRED: the plugin command name, to be invoked under 'kubectl'
+shortDesc: "status plugin"        # REQUIRED: the command short description, for help
+longDesc: ""                      # the command long description, for help
+example: ""                       # command example(s), for help
+command: "./status"               # REQUIRED: the command, binary, or script to invoke when running the plugin
+# flags:                            # flags supported by the plugin
+#   - name: "heat"                  # REQUIRED for each flag: flag name
+#     shorthand: "h"                # short version of the flag name
+#     desc: "Fire heat"             # REQUIRED for each flag: flag description
+#     defValue: "extreme" 
