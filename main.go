@@ -18,6 +18,7 @@ type Client struct {
 }
 
 func main() {
+
 	var client Client
 
 	// initialize client-go clients
@@ -40,14 +41,21 @@ func main() {
 
 	deployApi := clientset.AppsV1()
 
+	// serviceApi := clientset.CoreV1()
+
 	deployMent, err := deployApi.Deployments(client.namespace).List(metav1.ListOptions{})
-	// pvcs, err := deployApi.PersistentVolumeClaims(ns).List(metav1.ListOptions{})
 	if err != nil {
 		log.Fatal(err)
 	}
+	// service, err := serviceApi.Services(client.namespace).List(metav1.ListOptions{})
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 	fmt.Printf("In namespace %s on server %s\n", client.namespace, config.Host)
 	for _, b := range deployMent.Items {
-		fmt.Printf("deploy/%s deploys %s\n", b.Name, b.Spec.Template.Spec.Containers[0].Image)
+		fmt.Printf("\tdeploy/%s deploys %s\n", b.Name, b.Spec.Template.Spec.Containers[0].Image)
 	}
+	fmt.Println("")
+	fmt.Println("View details with 'kubectl describe <resource>/<name>' or list everything with 'kubectl get all'.")
 
 }

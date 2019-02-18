@@ -8,4 +8,4 @@ default: bin
 .PHONY: bin
 bin:
 	go build ${BUILD_FLAGS} -o status main.go
-	cp status ~/.local/bin
+	cp status ~/.kube/plugins/status
