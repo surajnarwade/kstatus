@@ -7,5 +7,5 @@ default: bin
 
 .PHONY: bin
 bin:
-	go build ${BUILD_FLAGS} -o status main.go
-	cp status ~/.kube/plugins/status
+	go build ${BUILD_FLAGS} -o kubectl-status main.go
+	#cp status ~/.kube/plugins/status
