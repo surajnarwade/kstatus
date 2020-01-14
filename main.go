@@ -41,21 +41,28 @@ func main() {
 
 	deployApi := clientset.AppsV1()
 
-	// serviceApi := clientset.CoreV1()
+	serviceApi := clientset.CoreV1()
 
-	deployMent, err := deployApi.Deployments(client.namespace).List(metav1.ListOptions{})
+	deployment, err := deployApi.Deployments(client.namespace).List(metav1.ListOptions{})
 	if err != nil {
 		log.Fatal(err)
 	}
-	// service, err := serviceApi.Services(client.namespace).List(metav1.ListOptions{})
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	fmt.Printf("In namespace %s on server %s\n", client.namespace, config.Host)
-	for _, b := range deployMent.Items {
+	service, err := serviceApi.Services(client.namespace).List(metav1.ListOptions{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("In namespace %s on server %s\n\n", client.namespace, config.Host)
+	for _, b := range deployment.Items {
 		fmt.Printf("\tdeploy/%s deploys %s\n", b.Name, b.Spec.Template.Spec.Containers[0].Image)
 	}
 	fmt.Println("")
-	fmt.Println("View details with 'kubectl describe <resource>/<name>' or list everything with 'kubectl get all'.")
+
+	for _, b := range service.Items {
+		if b.Name == "kubernetes" {
+			continue
+		}
+		fmt.Printf("\tsvc/%s is of type %s\n", b.Name, b.Spec.Type)
+	}
+	// fmt.Println("View details with 'kubectl describe <resource>/<name>' or list everything with 'kubectl get all'.")
 
 }
